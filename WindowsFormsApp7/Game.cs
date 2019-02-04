@@ -8,6 +8,11 @@ namespace WindowsFormsApp7
 {
    public class Game
     {
+        public int load;
+        public int Spin;
+        public int shoot;
+
+        public int replay = 2;
         int ran;
         public int rdm()
         {
@@ -18,17 +23,17 @@ namespace WindowsFormsApp7
 
         }
 
-        public int spin(int Sf)
+        public int spin(int Spinf)
         {
-            if (Sf == 6)
+            if (Spinf == 6)//it cehcks if spinf is equal to 6
             {
-                Sf = 1;
+                Spinf = 1;//it sets the value of spinf to 1
             }
             else
             {
-                Sf++;
+                Spinf++;//it increase the value of spinf by 1
             }
-            return Sf;
+            return Spinf;//it retuns the value of spinf
 
         }
 

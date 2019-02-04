@@ -12,14 +12,8 @@ namespace WindowsFormsApp7
 {
     public partial class Form2 : Form
     {
-        int o;
-        int lo;
-        int Sp;
-        int sk;
-        //int Sf;
-        int lu;
-        int a;
-       
+
+        Game Obj_game = new Game();
 
 
         public Form2()
@@ -32,24 +26,24 @@ namespace WindowsFormsApp7
 
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void buttonspin_Click(object sender, EventArgs e)
         {
-            pictureBox1.Visible = true;
+            pictureBox1.Visible = true;//it enables the visablility of picture box
             
             System.Media.SoundPlayer player = new System.Media.SoundPlayer(@"C:\Users\imrag\Documents\Visual Studio 2017\Projects\WindowsFormsApp7\resouse\spin.wav");
-
+            //it puts the the image from url to variable
             Game rd = new Game();
-            Sp = rd.rdm();
+            Obj_game.Spin = rd.rdm();//it cosses the random number form 1 to 7
 
-            button3.Enabled = true;
-            button2.Enabled = false;
+            button_spin.Enabled = false;//it diable the spin button
+            button_shoot.Enabled = true;//it enables the shoot button
         }
 
-        private void button4_Click(object sender, EventArgs e)
+        private void buttonreset_Click(object sender, EventArgs e)
         {
-            Sp = 0;
+            
             (new Form2()).Show();
-            this.Close();
+            this.Close();// this code reset the form to its orignal state
 
         }
 
@@ -58,24 +52,25 @@ namespace WindowsFormsApp7
 
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void buttonload_Click(object sender, EventArgs e)
         {
-            // below code helps to show the picbox
+            // below code  shows the picbox
             pictureBox1.Visible = true;
+            //it puts the image to the variable
             Image img = Image.FromFile(@"C:\Users\Rupinder Singh Com\Pictures\WindowsFormsApp7\resouse\load.gif");
             pictureBox1.Image = img;
             //below code is for uploading sound affect
             System.Media.SoundPlayer player = new System.Media.SoundPlayer(@"C:\Users\Rupinder Singh Com\Pictures\WindowsFormsApp7\resouse\loading.wav");
 
             // below code is helps to load only 1 bullet.
-            lo = 1;
+            Obj_game.load = 1;
 
 
-            button2.Enabled = true;
-            button1.Enabled = false;
+            button_spin.Enabled = true;//it enables the spin button
+            button_load.Enabled = false;//it disables the load button
         }
 
-        private void button3_Click(object sender, EventArgs e)
+        private void buttonshoot_Click(object sender, EventArgs e)
         {
             // below code helps to show the picbox
             pictureBox1.Visible = true;
@@ -88,43 +83,64 @@ namespace WindowsFormsApp7
 
             do
             {
-                if (sk == 0 && lo== Sp)
+                if (Obj_game.shoot == 0 && Obj_game.load == Obj_game.Spin)//it checks if the shoot is eqbal to 0 and spin is equal to load
                 {
-                    MessageBox.Show("you won and your score is 10");
-                    sk = 3;
-                    button4.Enabled = false;
+                    MessageBox.Show("you won and your score is 10");//it displays the win message
+                    Obj_game.shoot = 3;
+                    buttonshot.Enabled = false;// it diables the shoot button
+                    button_spin.Enabled = false;// it diables the spin button
+                    button_load.Enabled = false;// it diables the load button
                 }
-                else if (sk == 1 && lo == Sp)
+                else if (Obj_game.shoot == 1 && Obj_game.load == Obj_game.Spin)//it checks if the shoot is eqbal to 1 and spin is equal to load
                 {
-                    MessageBox.Show("you won and your score is 5");
-                    sk = 3;
-                    a = a - 1;
-
+                    MessageBox.Show("you won and your score is 5");//it shows the win message
+                    Obj_game.shoot = 3;//it sets shoot to 3
+                    Obj_game.replay = Obj_game.replay - 1;//it decresase the replay by 1
+                   
+                    buttonshot.Enabled = false;// it diables the shoot button
+                    button_spin.Enabled = false;// it diables the spin button
+                    button_load.Enabled = false;// it diables the load button
                 }
-                else if (sk == 2)
+                else if (Obj_game.shoot == 2)//it checks if the shoot is eqbal to 2
                 {
-                    MessageBox.Show("you loose");
-                    sk = 3;
-                    a = a - 1;
+                    MessageBox.Show("you loose");//it displays the loose message
+                    Obj_game.shoot = 3;// it sets shoot to 3
+                    Obj_game.replay = Obj_game.replay - 1;//it decresase the replay by 1
+                    
 
                 }
                 else
                 {
-                    sk++;
+                    Obj_game.shoot++;//it increase the shoot by one
                     Game Spinobj = new Game();
-                    Sp = Spinobj.spin(Sp);
+                    Obj_game.Spin = Spinobj.spin(Obj_game.Spin);
                   
                 }
             }
-            while (sk <= 2);
+            while (Obj_game.shoot <= 2);//it runs the below code until the value of shoot is below or eqbal to 2
 
-            if (a == 0)
+            if (Obj_game.replay == 0)//it checks if replay is equal to 0
             {
-                button3.Enabled = false;
-                button4.Enabled = true;
                
-                a = 2;
+                
+                button_load.Enabled = false;//this code diable the spin button
+                buttonshot.Enabled = false;//this code diable the shoot button
+                button_spin.Enabled = false;//this code diable the spin button
+
+
+                Obj_game.replay = 2;//it sets the replay to 2
             }
+            if(Obj_game.replay !=0)
+                
+            {
+                button_load.Enabled = false;
+                button_spin.Enabled = false;
+                Obj_game.load=0;
+                Obj_game.Spin=0;
+                Obj_game.shoot=0;
+
+                Obj_game.replay = 2;
+    }
 
         }
     }

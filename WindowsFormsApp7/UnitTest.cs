@@ -10,14 +10,14 @@ namespace WindowsFormsApp7
     [TestFixture]
     class UnitTest
     {
-        [TestCase]
+        [TestCase]//it is the postive test case
         public void positiveTest()
         {
             Game p = new Game();
             Assert.AreEqual(1, p.spin(6));
         }
 
-        [TestCase]
+        [TestCase]//it is negavtive test case
         public void negativeTest()
         {
             Game n = new Game();
